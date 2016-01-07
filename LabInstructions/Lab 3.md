@@ -22,10 +22,17 @@
 
 9. Create a new, separate Spring Boot application.  Name the project "lab-3-client", and use this value for the Artifact.  Add the web dependency.  You can make this a JAR or WAR project, but the instructions here will assume JAR.
 
-10.  Open the POM (or Gradle) file and add a “Dependency Management” section to identify the spring cloud parent pom. (You could simply change the parent entries, but most clients will probably be ordinary applications with their own parents):
+10.  Open the POM (or Gradle) file and add a “Dependency Management” section to identify the spring cloud parent pom. (You could simply change the parent entries, but most clients will probably be ordinary applications with their own parents). Also mind that you should make sure that the dependency management of Spring Boot takes precedence, so put spring-boot-starter as first entry in the dependency management (or you will get an annoying exception on the startup):
     ```
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>1.3.1.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-parent</artifactId>
